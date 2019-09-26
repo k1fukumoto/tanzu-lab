@@ -64,6 +64,8 @@ fi
 for t in $TOOLS
 do
   install_$t
+  echo -n "Finish installing $t. Continue?"
+  read a
 done
 
 
