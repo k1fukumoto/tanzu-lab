@@ -55,6 +55,15 @@ install_kubectl() {
   mv ./kubectl /usr/local/bin/kubectl
 }
 
-$1
+TOOLS=$*
+if [ "$TOOLS" == "all" ]
+then
+  TOOLS="clusterctl docker go gcc kind kubectl"
+fi
+
+for t in $TOOLS
+do
+  install_$t
+done
 
 
