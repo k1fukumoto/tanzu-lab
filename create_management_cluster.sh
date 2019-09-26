@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
-clusterctl create cluster \
+sudo env "PATH=$PATH" clusterctl create cluster \
   --bootstrap-type kind \
   --bootstrap-flags name=management-cluster \
   --cluster ./out/management-cluster/cluster.yaml \
