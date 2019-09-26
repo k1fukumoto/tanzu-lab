@@ -1,7 +1,10 @@
 #!/bin/bash
 
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+
+
 generate_manifest() {
-  docker run --rm \
+  sudo docker run --rm \
     -v "$(pwd)":/out \
     -v "$(pwd)/envvars.sh":/envvars.txt:ro \
     gcr.io/cluster-api-provider-vsphere/release/manifests:v0.5.0 \
