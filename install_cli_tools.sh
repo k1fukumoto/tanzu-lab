@@ -55,6 +55,12 @@ install_kubectl() {
   sudo mv ./kubectl /usr/local/bin/kubectl
 }
 
+install_helm() {
+  wget https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
+  tar -zxvf helm*.tar.gz
+  sudo mv linux-amd64/helm /usr/local/bin/helm
+}
+
 TOOLS=$*
 if [ "$TOOLS" == "all" ]
 then
