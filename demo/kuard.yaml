@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: kuard
+  name: kuard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: kuard
+  template:
+    metadata:
+      labels:
+        run: kuard
+    spec:
+      containers:
+      - image: gcr.io/kuar-demo/kuard-amd64:blue
+        name: kuard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: kuard
+  name: kuard
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    run: kuard
+  type: LoadBalancer
