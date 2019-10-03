@@ -5,6 +5,7 @@ PASS='VMware1!'
 
 sudo adduser $USER --disabled-password --gecos ""
 echo "$USER:$PASS" | sudo chpasswd
+sudo gpasswd -a $USER docker
 sudo su $USER  -c 'ssh-keygen -t rsa -N "" -f /home/$USER/.ssh/id_rsa'
 
 cd /home/$USER

@@ -6,7 +6,7 @@ USER=$1
 CLUSTER=$2
 
 generate_manifest() {
-  sudo docker run --rm \
+  docker run --rm \
     -v "$(pwd)":/out \
     -v "$(pwd)/envvars_$USER.sh":/envvars.txt:ro \
     gcr.io/cluster-api-provider-vsphere/release/manifests:v0.5.0 \
