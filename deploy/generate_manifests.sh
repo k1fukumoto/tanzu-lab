@@ -5,6 +5,8 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 USER=$1
 CLUSTER=$2
 
+cd /home/$USER/tanzu-lab/deploy
+
 generate_manifest() {
   docker run --rm \
     -v "$(pwd)":/out \
