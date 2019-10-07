@@ -1,13 +1,22 @@
 #!/bin/bash
 
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 CLUSTER"
+    exit
+fi
+
+
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
-sudo env "PATH=$PATH" clusterctl create cluster \
+CLUSTER=$1
+
+    # sudo env "PATH=$PATH" clusterctl create cluster \
+clusterctl create cluster \
   --bootstrap-type kind \
-  --bootstrap-flags name=management-cluster \
-  --cluster ./out/management-cluster/cluster.yaml \
-  --machines ./out/management-cluster/controlplane.yaml \
-  --provider-components ./out/management-cluster/provider-components.yaml \
-  --addon-components ./out/management-cluster/addons.yaml \
-  --kubeconfig-out ./out/management-cluster/kubeconfig \
+  --bootstrap-flags name=$CLUSTER \
+  --cluster ./out/$CLUSTER/cluster.yaml \
+  --machines ./out/$CLUSTER/controlplane.yaml \
+  --provider-components ./out/$CLUSTER/provider-components.yaml \
+  --addon-components ./out/$CLUSTER/addons.yaml \
+  --kubeconfig-out ./out/$CLUSTER/kubeconfig \
   -v 6

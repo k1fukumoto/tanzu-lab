@@ -1,8 +1,11 @@
 #!/bin/bash
 
-export KUBECONFIG="$(pwd)/out/management-cluster/kubeconfig"
+export MANAGEMENT_CLUSTER=$1
+export WORKLOAD_CLUSTER=$2
 
-kubectl apply -f ./out/workload-cluster-1/cluster.yaml
-kubectl apply -f ./out/workload-cluster-1/controlplane.yaml
-kubectl apply -f ./out/workload-cluster-1/machinedeployment.yaml
-kubectl apply -f ./out/workload-cluster-1/addons.yaml
+export KUBECONFIG="$(pwd)/out/$MANAGEMENT_CLUSTER/kubeconfig"
+
+kubectl apply -f ./out/$WORKLOAD_CLUSTER/cluster.yaml
+kubectl apply -f ./out/$WORKLOAD_CLUSTER/controlplane.yaml
+kubectl apply -f ./out/$WORKLOAD_CLUSTER/machinedeployment.yaml
+#kubectl apply -f ./out/$WORKLOAD_CLUSTER/addons.yaml
