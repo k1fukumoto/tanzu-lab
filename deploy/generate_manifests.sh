@@ -23,7 +23,7 @@ patch_manifest() {
   tmp=$(mktemp /tmp/$0.XXXX)
   for f in $(ls out/$CLUSTER/*.yaml)
   do
-    sed 's/sddc-cgw-horizon-cpsbu-desktops-1/\"sddc-cgw-horizon-cpsbu-desktops-1 \"/g' $f > $tmp
+    sed $'s/sddc-cgw-horizon-cpsbu-desktops-1/\'sddc-cgw-horizon-cpsbu-desktops-1 \'/g' $f > $tmp
     cp $tmp $f
   done
   rm $tmp
