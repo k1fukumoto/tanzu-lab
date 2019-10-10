@@ -64,7 +64,7 @@ install_helm() {
 TOOLS=$*
 if [ "$TOOLS" == "all" ]
 then
-  TOOLS="clusterctl docker go gcc kind kubectl"
+  TOOLS="clusterctl docker go gcc kind kubectl helm"
 fi
 
 for t in $TOOLS
