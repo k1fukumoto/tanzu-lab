@@ -61,10 +61,16 @@ install_helm() {
   sudo mv linux-amd64/helm /usr/local/bin/helm
 }
 
+install_mc() {
+  wget https://dl.min.io/client/mc/release/linux-amd64/mc
+  chmod +x mc
+  sudo mv mc /usr/local/bin
+}
+
 TOOLS=$*
 if [ "$TOOLS" == "all" ]
 then
-  TOOLS="clusterctl docker go gcc kind kubectl helm"
+  TOOLS="clusterctl docker go gcc kind kubectl helm mc"
 fi
 
 for t in $TOOLS
