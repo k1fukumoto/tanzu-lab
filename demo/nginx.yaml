@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      volumes:
+      - name: html-data
+        persistentVolumeClaim:
+          claimName: pvc-html-data
+      containers:
+      - image: nginx
+        name: nginx
+        volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: html-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: nginx
+  type: LoadBalancer
