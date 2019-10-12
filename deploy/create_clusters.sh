@@ -8,8 +8,13 @@ fi
 export MANAGEMENT=$1
 export WORKLOAD=$2
 
-./generate_manifests.sh $MANAGEMENT
-./create_management_cluster.sh $MANAGEMENT
+if [ -d ./out/$MANAGEMENT ]; then
+  echo Management clustger exists. Deploy workload cluster
+else
+  echo Start deploying management cluster
+  ./generate_manifests.sh $MANAGEMENT
+  ./create_management_cluster.sh $MANAGEMENT
+fi
 
 ./generate_manifests.sh $WORKLOAD
 export KUBECONFIG="$(pwd)/out/$MANAGEMENT/kubeconfig"
