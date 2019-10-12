@@ -1,6 +1,11 @@
 M_DIR=$HOME/tanzu-lab/deploy/out
-
 cc() {
-  export KUBECONFIG=$M_DIR/$1/kubeconfig
-  echo "KUBECONFIG is updated to '$KUBECONFIG'"
+  C=$1
+  export KUBECONFIG=$M_DIR/$C/kubeconfig
 }
+
+source <(kubectl completion bash)
+
+alias k=kubectl
+complete -F __start_kubectl k
+
