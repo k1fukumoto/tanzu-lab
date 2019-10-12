@@ -67,10 +67,17 @@ install_mc() {
   sudo mv mc /usr/local/bin
 }
 
+install_velero() {
+  wget https://github.com/vmware-tanzu/velero/releases/download/v1.1.0/velero-v1.1.0-linux-amd64.tar.gz
+  tar zxvf velero-v1.1.0-linux-amd64.tar.gz
+  chmod +x velero-v1.1.0-linux-amd64/velero
+  sudo mv velero-v1.1.0-linux-amd64/velero /usr/local/bin
+}
+
 TOOLS=$*
 if [ "$TOOLS" == "all" ]
 then
-  TOOLS="clusterctl docker go gcc kind kubectl helm mc"
+  TOOLS="clusterctl docker go gcc kind kubectl helm mc velero"
 fi
 
 for t in $TOOLS
