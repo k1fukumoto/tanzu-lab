@@ -1,0 +1,15 @@
+env=Environment()
+bld=Builder(action='tar zxvf $SOURCE')
+env['BUILDERS']['Targz']=bld
+
+c = env.Command('helm-v2.14.3-linux-amd64.tar.gz',[],
+            'wget https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz')
+#c = env.Command('linux-amd64/','helm-v2.14.3-linux-amd64.tar.gz',
+#            "tar zxvf $SOURCE")
+c = env.Targz('linux-amd64/helm','helm-v2.14.3-linux-amd64.tar.gz')
+c = env.Command('/usr/local/bin/helm','linux-amd64/helm',
+                "sudo cp $SOURCE $TARGET")
+Clean(c,'linux-amd64/')
+
+Default('/usr/local/bin/helm')
+
