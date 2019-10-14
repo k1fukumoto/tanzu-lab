@@ -1,16 +1,63 @@
+import os
+
 env=Environment()
+
+env['ENV']['PATH'] = ':'.join([env['ENV']['PATH'],
+                              '/sbin','/usr/local/go/bin'])
 
 def Wget(target,url_prefix):
   return env.Command(target,[],'wget {}/{}'.format(url_prefix,target))
 def Targz(target,source):
-  return env.Command(target,source,'tar zxvf {}'.format(source))
+  return env.Command(target,source,'tar zxf {}'.format(source))
+def Install(target,source):
+  return env.Command(target,source,
+                     [Copy("$TARGET","$SOURCE"),Chmod("$TARGET",755)])
 
-c = Wget('helm-v2.14.3-linux-amd64.tar.gz','https://get.helm.sh')
+def install_go():
+    c = Wget('go1.13.linux-amd64.tar.gz',
+             'https://dl.google.com/go')
+    c = env.Command('/usr/local/go/bin/go','go1.13.linux-amd64.tar.gz',
+                    'tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz')
 
-c = Targz('linux-amd64/helm','helm-v2.14.3-linux-amd64.tar.gz')
-Clean(c,'linux-amd64/')
+def install_kind():
+    c = env.Command('kind',[],'GO111MODULE=on GOCACHE=/tmp/gocache GOPATH={}/go go get sigs.k8s.io/kind@v0.5.1'.format(os.environ['HOME']))
 
-c = env.Install('/usr/local/bin','linux-amd64/helm')
+def install_helm():
+    c = Wget('helm-v2.14.3-linux-amd64.tar.gz','https://get.helm.sh')
+    c = Targz('linux-amd64/helm','helm-v2.14.3-linux-amd64.tar.gz')
+    Clean(c,'linux-amd64/')
+    c = Install('/usr/local/bin/helm','linux-amd64/helm')
 
-#Default('/usr/local/bin/helm')
+def install_mc():
+    c = Wget('mc',
+             'https://dl.min.io/client/mc/release/linux-amd64')
+    c = Install('/usr/local/bin/mc','mc')
+
+def install_velero():
+    c = Wget('velero-v1.1.0-linux-amd64.tar.gz',
+             'https://github.com/vmware-tanzu/velero/releases/download/v1.1.0')
+    c = Targz('velero-v1.1.0-linux-amd64/velero',
+              'velero-v1.1.0-linux-amd64.tar.gz')
+    Clean(c,'velero-v1.1.0-linux-amd64/')
+    c = Install('/usr/local/bin/velero','velero-v1.1.0-linux-amd64/velero')
+
+def install_clusterctl():
+    c = Wget('clusterctl-linux-amd64',
+             'https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.2.1')
+    c = Install('/usr/local/bin/clusterctl','clusterctl-linux-amd64')
+
+def install_gcc():
+  return env.Command('/usr/bin/gcc',[],'apt install -y build-essential')
+    
+    
+install_gcc()
+install_go()
+install_kind()
+
+install_helm()
+install_mc()
+install_velero()
+install_clusterctl()
+
+Default(['/usr/local/bin','/usr/bin','/usr/local/go'])
 
