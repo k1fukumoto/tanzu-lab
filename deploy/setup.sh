@@ -1,4 +1,4 @@
 #!/bin/sh
 
 sudo apt install -y scons
-scons cli-tools
+sudo scons cli-tools
