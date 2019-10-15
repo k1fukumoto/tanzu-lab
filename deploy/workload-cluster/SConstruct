@@ -1,0 +1,21 @@
+import os
+
+env=Environment()
+
+env['ENV']['PATH'] = ':'.join([env['ENV']['PATH'],
+                              '/sbin','/usr/local/go/bin'])
+env['ENV']['HOME'] = os.environ['HOME']
+
+def install_cluster():
+    cluster=os.environ['CLUSTER']
+    outdir='./out/{}'.format(cluster)
+    manifest='{}/cluster.yaml'.format(outdir)
+    cfg='{}/kubeconfig'.format(outdir)
+
+    c = env.Command(cfg,manifest,'../create_management_cluster.sh {}'.format(cluster))
+    c = env.Command(manifest,[],'../generate_manifests.sh {}'.format(cluster))
+    Clean(c,outdir)
+    env.Alias('cluster',cfg)
+
+install_cluster()
+env.Default('cluster')
