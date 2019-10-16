@@ -3,7 +3,7 @@ import string
 import random
 
 def random_string(length):
-    return ''.join(random.choice(string.ascii_letters) for m in xrange(length))
+    return ''.join(random.choice(string.ascii_lowercase + string.digits) for m in xrange(length))
 
 env=Environment()
 
@@ -11,16 +11,17 @@ env['ENV']['PATH'] = ':'.join([env['ENV']['PATH'],
                               '/sbin','/usr/local/go/bin'])
 env['ENV']['HOME'] = os.environ['HOME']
 
-def install_cluster():
-    cluster=os.environ.get('MANAGEMENT_CLUSTER','M-{}'.format(random_string(4)))
-    outdir='./out/{}'.format(cluster)
-    manifest='{}/cluster.yaml'.format(outdir)
-    cfg='{}/kubeconfig'.format(outdir)
+cluster=os.environ.get('MANAGEMENT_CLUSTER','m-{}'.format(random_string(4)))
+outdir='./management-cluster/out/{}'.format(cluster)
+manifest='{}/cluster.yaml'.format(outdir)
+cfg='{}/kubeconfig'.format(outdir)
 
+def install_cluster():
     c = env.Command(cfg,manifest,'./create_management_cluster.sh {}'.format(cluster))
     c = env.Command(manifest,[],'./generate_manifests.sh {}'.format(cluster))
     Clean(c,outdir)
     env.Alias('management-cluster',cfg)
+    env.Alias('management-cluster-manifest',manifest)
 
 install_cluster()
 env.Default('management-cluster')
