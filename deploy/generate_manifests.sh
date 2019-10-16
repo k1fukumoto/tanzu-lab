@@ -11,15 +11,15 @@ CLUSTER=$1
 
 generate_manifest() {
   docker run --rm \
-    -v "$(pwd)":/out \
-    -v "$(pwd)/../envvars.sh":/envvars.txt:ro \
+    -v "$(pwd)/management-cluster":/out \
+    -v "$(pwd)/envvars.sh":/envvars.txt:ro \
     gcr.io/cluster-api-provider-vsphere/release/manifests:v0.5.1 \
     -c $CLUSTER
 }
 
 patch_manifest() {
   tmp=$(mktemp /tmp/patch_manifest.XXXX)
-  for f in $(ls out/$CLUSTER/*.yaml)
+  for f in $(ls management-cluster/out/$CLUSTER/*.yaml)
   do
     sed $'s/sddc-cgw-horizon-cpsbu-desktops-1/\'sddc-cgw-horizon-cpsbu-desktops-1 \'/g' $f > $tmp
     cp $tmp $f
