@@ -11,17 +11,16 @@ env['ENV']['PATH'] = ':'.join([env['ENV']['PATH'],
                               '/sbin','/usr/local/go/bin'])
 env['ENV']['HOME'] = os.environ['HOME']
 
-cluster=os.environ.get('MANAGEMENT_CLUSTER','m-{}'.format(random_string(4)))
-outdir='./management-cluster/out/{}'.format(cluster)
+cluster=os.environ.get('MANAGEMENT_CLUSTER','m-{}'.format(random_string(6)))
+outdir='./out/{}'.format(cluster)
 manifest='{}/cluster.yaml'.format(outdir)
 cfg='{}/kubeconfig'.format(outdir)
 
 def install_cluster():
-    c = env.Command(cfg,manifest,'./create_management_cluster.sh {}'.format(cluster))
-    c = env.Command(manifest,[],'./generate_manifests.sh {}'.format(cluster))
+    c = env.Command(cfg,manifest,'cd management-cluster && ../create_management_cluster.sh {}'.format(cluster))
+    c = env.Command(manifest,[],'cd management-cluster && ../generate_manifests.sh {}'.format(cluster))
     Clean(c,outdir)
     env.Alias('management-cluster',cfg)
-    env.Alias('management-cluster-manifest',manifest)
 
 install_cluster()
-env.Default('management-cluster')
+
