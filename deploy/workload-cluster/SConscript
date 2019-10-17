@@ -6,7 +6,6 @@ import glob
 def random_string(length):
     return ''.join(random.choice(string.ascii_lowercase + string.digits) for m in xrange(length))
 
-
 env=Environment()
 
 env['ENV']['PATH'] = ':'.join([env['ENV']['PATH'],
@@ -14,16 +13,16 @@ env['ENV']['PATH'] = ':'.join([env['ENV']['PATH'],
 env['ENV']['HOME'] = os.environ['HOME']
 
 management=os.environ.get('MANAGEMENT_CLUSTER','')
-if not management:
+if ('workload-cluster' in COMMAND_LINE_TARGETS) and (not management):
     for filepath in glob.iglob('../management-cluster/out/*'):
         management=filepath.split('/')[-1]
         break
-if not management:
-    raise(Exception('Cannot find management cluster'))
+    if not management:
+        raise(Exception('Cannot find management cluster'))
 
-env['ENV']['KUBECONFIG']='out/management-cluster/out/{}/kubeconfig'.format(management)
+env['ENV']['KUBECONFIG']='management-cluster/out/{}/kubeconfig'.format(management)
 
-workload=os.environ.get('WORKLOAD_CLUSTER','w-{}'.format(random_string(4)))
+workload=os.environ.get('WORKLOAD_CLUSTER','w-{}'.format(random_string(6)))
 
 outdir='./out/{}'.format(workload)
 manifest='{}/cluster.yaml'.format(outdir)
@@ -32,10 +31,10 @@ cfg='{}/kubeconfig'.format(outdir)
 def create_cluster():
     cmd = ' && '.join(map(lambda y: 'kubectl apply -f ./workload-cluster/out/{}/{}'.format(workload,y),
                           ['cluster.yaml','controlplane.yaml','machinedeployment.yaml']))
+    cmd += ' && ./wait_for_machines.sh {}'.format(workload)
 
-    c = env.Command(manifest,[],'./generate_manifests.sh {}'.format(workload))
+    c = env.Command(manifest,[],'cd workload-cluster && ../generate_manifests.sh {}'.format(workload))
     c = env.Command(cfg,manifest,cmd)
     env.Alias('workload-cluster',cfg)
 
 create_cluster()
-env.Default('workload-cluster')
