@@ -14,9 +14,9 @@ CLUSTER=$1
 clusterctl create cluster \
   --bootstrap-type kind \
   --bootstrap-flags name=$CLUSTER \
-  --cluster ./management-cluster/out/$CLUSTER/cluster.yaml \
-  --machines ./management-cluster/out/$CLUSTER/controlplane.yaml \
-  --provider-components ./management-cluster/out/$CLUSTER/provider-components.yaml \
-  --addon-components ./management-cluster/out/$CLUSTER/addons.yaml \
-  --kubeconfig-out ./management-cluster/out/$CLUSTER/kubeconfig \
+  --cluster ./out/$CLUSTER/cluster.yaml \
+  --machines ./out/$CLUSTER/controlplane.yaml \
+  --provider-components ./out/$CLUSTER/provider-components.yaml \
+  --addon-components ./out/$CLUSTER/addons.yaml \
+  --kubeconfig-out ./out/$CLUSTER/kubeconfig \
   -v 6
