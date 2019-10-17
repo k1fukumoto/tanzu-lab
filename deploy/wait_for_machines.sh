@@ -24,6 +24,8 @@ kubectl get secret $WORKLOAD_CLUSTER-kubeconfig \
   { base64 -d 2>/dev/null || base64 -D; } \
   > workload-cluster/out/$WORKLOAD_CLUSTER/kubeconfig
 
+kubectl label cluster $WORKLOAD_CLUSTER cluster-type=workload
+
 export KUBECONFIG=workload-cluster/out/$WORKLOAD_CLUSTER/kubeconfig
 
 kubectl apply -f workload-cluster/out/$WORKLOAD_CLUSTER/addons.yaml

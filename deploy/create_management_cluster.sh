@@ -20,3 +20,5 @@ clusterctl create cluster \
   --addon-components ./out/$CLUSTER/addons.yaml \
   --kubeconfig-out ./out/$CLUSTER/kubeconfig \
   -v 6
+
+kubectl label cluster $CLUSTER cluster-type=management
