@@ -3,6 +3,10 @@
 USER=$1
 cd /home/$USER/tanzu-lab
 
-cat ./deploy/envvars.sh | RSAKEY=$(cat /home/$USER/.ssh/id_rsa.pub) ./onboard/embed_key.py > ./deploy/envvars_$USER.sh
+tmp=$(mktemp /tmp/onboard_user.XXXX)
+cat ./deploy/envvars.sh | RSAKEY=$(cat /home/$USER/.ssh/id_rsa.pub) ./onboard/embed_key.py > $tmp
+mv $tmp ./deploy/envvars.sh
 
-./deploy/generate_manifests.sh $USER workload_cluster_$USER
+cd ./deploy
+WORKLOAD_CLUSTER=w-$USER scons workload-cluster
+
