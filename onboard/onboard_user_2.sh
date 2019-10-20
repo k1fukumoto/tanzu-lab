@@ -10,6 +10,5 @@ cat ./deploy/envvars.sh | RSAKEY=$(cat /home/$USER/.ssh/id_rsa.pub) ./onboard/em
 mv $tmp ./deploy/envvars.sh
 
 cd ./deploy
-pwd
 MANAGEMENT_CLUSTER=$M_CLUSTER WORKLOAD_CLUSTER=w-$USER scons workload-cluster
 
