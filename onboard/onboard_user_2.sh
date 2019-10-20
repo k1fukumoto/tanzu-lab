@@ -1,6 +1,8 @@
 #!/bin/bash
 
 USER=$1
+M_CLUSTER=$2
+
 cd /home/$USER/tanzu-lab
 
 tmp=$(mktemp /tmp/onboard_user.XXXX)
@@ -9,5 +11,5 @@ mv $tmp ./deploy/envvars.sh
 
 cd ./deploy
 pwd
-WORKLOAD_CLUSTER=w-$USER scons workload-cluster
+MANAGEMENT_CLUSTER=$M_CLUSTER WORKLOAD_CLUSTER=w-$USER scons workload-cluster
 
