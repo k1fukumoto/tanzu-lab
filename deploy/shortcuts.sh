@@ -1,13 +1,16 @@
-kubecfg_management() {
-  export DEPLOY=$HOME/tanzu-lab/deploy
+export DEPLOY=$HOME/tanzu-lab/deploy
 
-  export MANAGEMENT_CLUSTER=''
+find_management_cluster() {
   for f in $(ls -d $DEPLOY/management-cluster/out/*)
   do
-    MANAGEMENT_CLUSTER=$(basename $f)
-    break
+    echo $(basename $f)
+    exit
   done
+  echo 'WARNING: No management cluster found'
+}
 
+kubecfg_management() {
+  export MANAGEMENT_CLUSTER=$(find_management_cluster)
   export KUBECONFIG=$DEPLOY/management-cluster/out/$MANAGEMENT_CLUSTER/kubeconfig
   echo KUBECONFIG=$KUBECONFIG
 }
