@@ -12,3 +12,6 @@ mv $tmp ./deploy/envvars.sh
 cd ./deploy/workload-cluster
 KUBECONFIG=$M_CFG WORKLOAD_CLUSTER=w-$USER scons
 
+echo "export KUBECONFIG=$HOME/tanzu-lab/deploy/workload-cluster/out/w-$USER/kubeconfig" >> $HOME/.bashrc
+
+
