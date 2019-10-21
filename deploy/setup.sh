@@ -5,4 +5,11 @@ echo 'libssl1.1	libraries/restart-without-asking	boolean	true' | sudo debconf-se
 echo 'libssl1.1:amd64	libraries/restart-without-asking	boolean	true' | sudo debconf-selections
 
 sudo apt install -y scons
-sudo scons cli-tools
+
+DEPLOY=$(pwd)
+
+cd $DEPLOY/cli-tools
+sudo scons || exit 1
+
+cd $DEPLOY/management-cluster
+scons || exit 1
