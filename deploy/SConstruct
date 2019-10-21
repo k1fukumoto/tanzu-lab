@@ -1,4 +1,0 @@
-SConscript(['cli-tools/SConscript',
-            'management-cluster/SConscript',
-            'workload-cluster/SConscript'])
-
