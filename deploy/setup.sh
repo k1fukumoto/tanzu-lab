@@ -12,4 +12,4 @@ cd $DEPLOY/cli-tools
 sudo scons || exit 1
 
 cd $DEPLOY/management-cluster
-scons || exit 1
+sudo scons || exit 1
