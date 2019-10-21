@@ -22,15 +22,15 @@ done
 kubectl get secret $WORKLOAD_CLUSTER-kubeconfig \
   -o=jsonpath='{.data.value}' | \
   { base64 -d 2>/dev/null || base64 -D; } \
-  > workload-cluster/out/$WORKLOAD_CLUSTER/kubeconfig
+  > out/$WORKLOAD_CLUSTER/kubeconfig
 
 kubectl label cluster $WORKLOAD_CLUSTER cluster-type=workload
 
-export KUBECONFIG=workload-cluster/out/$WORKLOAD_CLUSTER/kubeconfig
+export KUBECONFIG=out/$WORKLOAD_CLUSTER/kubeconfig
 
-kubectl apply -f workload-cluster/out/$WORKLOAD_CLUSTER/addons.yaml
+kubectl apply -f out/$WORKLOAD_CLUSTER/addons.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
-kubectl apply -f metallb.yaml # this manifest needs to be generated from envvars.sh
+kubectl apply -f ../metallb.yaml # this manifest needs to be generated from envvars.sh
 
 
