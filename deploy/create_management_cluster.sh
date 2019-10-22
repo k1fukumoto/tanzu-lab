@@ -21,4 +21,4 @@ clusterctl create cluster \
   --kubeconfig-out ./out/$CLUSTER/kubeconfig \
   -v 6
 
-# kubectl label cluster $CLUSTER cluster-type=management
+sudo chown k8s-admin out/$CLUSTER/kubeconfig
