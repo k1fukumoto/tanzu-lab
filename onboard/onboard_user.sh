@@ -18,10 +18,22 @@ find_management_kubecfg() {
   exit 1
 }
 
-CFG=$(find_management_kubecfg)
-sudo chmod a+r $CFG
+MCFG=$(find_management_kubecfg)
 
 cd /home/$USER
 sudo su $USER -c 'git clone https://github.com/k1fukumoto/tanzu-lab.git'
-sudo su $USER -c "./tanzu-lab/onboard/onboard_user_2.sh $USER $CFG"
+
+cd tanzu-lab/onboard
+sudo su $USER -c "./replace_key.sh $USER"
+
+cd ../deploy/workload-cluster
+sudo KUBECONFIG=$MCFG WORKLOAD_CLUSTER=w-$USER scons
+
+WCFG=/home/$USER/tanzu-lab/deploy/workload-cluster/out/w-$USER/kubeconfig
+sudo chown $USER $WCFG
+sudo chgrp $USER $WCFG
+sudo chmod o-r $WCFG
+
+sudo sh -c "echo export KUBECONFIG=$WCFG >> /home/$USER/.bashrc"
+sudo sh -c "echo . /home/$USER/tanzu-lab/deploy/shortcuts.sh >> /home/$USER/.bashrc"
 
