@@ -22,6 +22,4 @@ sudo apt-get -y update
 sudo apt-get -y remove docker-ce-cli
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 
-sudo gpasswd -a k8s-admin docker
-
 sudo docker run hello-world
