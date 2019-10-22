@@ -2,7 +2,9 @@
 
 NUM=$1
 
+cd ../onboard
+
 for n in $(seq 1 $NUM)
 do
-  WORKLOAD_CLUSTER="w-0$n" scons workload-cluster
+  ./onboard_user.sh user-0$n
 done
