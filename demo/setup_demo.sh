@@ -1,10 +1,11 @@
 #!/bin/bash
 
-NUM=$1
+START=$1
+END=$2
 
 cd ../onboard
 
-for n in $(seq 1 $NUM)
+for n in $(seq $START $END)
 do
-  ./onboard_user.sh user-0$n
+  ./onboard_user.sh user$n
 done
