@@ -18,7 +18,13 @@ find_management_kubecfg() {
   exit 1
 }
 
+generate_randomstr() {
+    cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 6 | head -n 1
+}
+
+
 MCFG=$(find_management_kubecfg)
+WCLUSTER=w-$USER-$(generate_randomstr)
 
 cd /home/$USER
 sudo su $USER -c 'git clone https://github.com/k1fukumoto/tanzu-lab.git'
@@ -27,9 +33,9 @@ cd tanzu-lab/onboard
 sudo su $USER -c "./replace_key.sh $USER"
 
 cd ../deploy/workload-cluster
-sudo KUBECONFIG=$MCFG WORKLOAD_CLUSTER=w-$USER scons
+sudo KUBECONFIG=$MCFG WORKLOAD_CLUSTER=$WCLUSTER scons
 
-WCFG=/home/$USER/tanzu-lab/deploy/workload-cluster/out/w-$USER/kubeconfig
+WCFG=/home/$USER/tanzu-lab/deploy/workload-cluster/out/$WCLUSTER/kubeconfig
 sudo chown $USER $WCFG
 sudo chgrp $USER $WCFG
 sudo chmod o-r $WCFG
