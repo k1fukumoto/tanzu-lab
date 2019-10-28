@@ -1,11 +1,10 @@
 #!/bin/bash
 
-START=$1
-END=$2
+USERS=$*
 
 cd ../onboard
 
-for n in $(seq $START $END)
+for u in $USERS
 do
-  ./onboard_user.sh user$n
+  ./onboard_user.sh $u
 done
