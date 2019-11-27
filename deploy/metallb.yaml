@@ -9,4 +9,4 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - 10.108.5.201-10.108.5.208
+      - 10.108.5.201-10.108.5.216
