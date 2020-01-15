@@ -66,7 +66,16 @@ def install_velero():
   Clean(c,'velero-v1.1.0-linux-amd64/')
   c = Install('/usr/local/bin/velero','velero-v1.1.0-linux-amd64/velero')
   env.Alias('velero','/usr/local/bin/velero')
-    
+
+def install_sonobuoy():
+  c = Wget('sonobuoy_0.17.1_linux_amd64.tar.gz',
+           'https://github.com/vmware-tanzu/sonobuoy/releases/download/v0.17.1')
+  c = Targz('sonobuoy',
+            'sonobuoy_0.17.1_linux_amd64.tar.gz')
+  Clean(c,'sonobuoy')
+  c = Install('/usr/local/bin/sonobuoy','sonobuoy')
+  env.Alias('a_sonobuoy','/usr/local/bin/sonobuoy')
+
 install_gcc()
 install_docker()
 install_go()
@@ -77,8 +86,9 @@ install_kubectl()
 install_helm()
 install_mc()
 install_velero()
+install_sonobuoy()
 
 env.Alias('cli-tools',['gcc','docker','go','kind','clusterctl','kubectl',
-          'helm','mc','velero'])
+          'helm','mc','velero','a_sonobuoy'])
 
 env.Default('cli-tools')
