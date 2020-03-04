@@ -6,3 +6,4 @@ set -e
 ./install_kind.sh
 ./install_kubectl.sh
 ./create_cluster.sh
+./configure_cluster.sh
