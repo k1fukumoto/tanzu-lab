@@ -4,7 +4,7 @@ VSPHERE_PASSWORD: 'dW0n0Lw+-FSnPpD'
 
 VSPHERE_DATACENTER: 'SDDC-Datacenter'
 VSPHERE_DATASTORE: 'WorkloadDatastore'
-VSPHERE_NETWORK: 'sddc-cgw-horizon-cpsbu-desktops-1 '
+VSPHERE_NETWORK: 'sddc-cgw-horizon-cpsbu-demo-1'
 VSPHERE_RESOURCE_POOL: 'K8s Lab'
 VSPHERE_FOLDER: 'K8s Lab'
 VSPHERE_TEMPLATE: 'ubuntu-1804-kube'
