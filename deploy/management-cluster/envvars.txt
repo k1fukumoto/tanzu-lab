@@ -4,7 +4,7 @@ export VSPHERE_PASSWORD='dW0n0Lw+-FSnPpD'
 
 export VSPHERE_DATACENTER='SDDC-Datacenter'
 export VSPHERE_DATASTORE='WorkloadDatastore'
-export VSPHERE_NETWORK='sddc-cgw-horizon-demo-desktops-1'
+export VSPHERE_NETWORK='sddc-k8-jomann'
 export VSPHERE_RESOURCE_POOL='K8s Lab'
 export VSPHERE_FOLDER='K8s Lab'
 export VSPHERE_TEMPLATE='ubuntu-1804-kube-v1.16.2-k8s'
