@@ -7,7 +7,7 @@ export VSPHERE_DATASTORE='WorkloadDatastore'
 export VSPHERE_NETWORK='sddc-cgw-horizon-demo-desktops-1'
 export VSPHERE_RESOURCE_POOL='K8s Lab'
 export VSPHERE_FOLDER='K8s Lab'
-export VSPHERE_TEMPLATE='ubuntu-1804-kube-v1.16.2'
+export VSPHERE_TEMPLATE='ubuntu-1804-kube-v1.16.2-k8s'
 
 export SSH_AUTHORIZED_KEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkuXEX7xNuNEFr6A8XYJa2ebuvo5egWeF19KsnFuIV1ch4A1OyO/xALhEV/zeHk2EHM5eTvOIQosdzXfMWA3DmsOEgtG0v2pfeeNl04Zh7pXFP2GYA3Y5sGqOjOvsVLqPp7kJVsFAc8RUppRfh5/Ox5MGSgSjDVNlkS1XcHdvzsR4SHI8eD5p+wrXMexsBLDcFZnCAHTgFM4DqV9y50jvsojGv0oo0LdYr5zbd+GrH69i4MOfW+Hq35GNQzpEweP1AHzorqpITOUarqf2I649FsgtUkTEvX9DWDe6EVrHbIU1oZOvk7DWEAjoh68O/3I8VtIafQhqNEjE9u/Qo5hc5 k8s-admin@console-01'
 

@@ -12,7 +12,7 @@ docker run --rm \
   -c management-cluster
 
 # create cluster
-clusterctl create cluster \
+clusterctl create cluster --v 5 \
   --bootstrap-type kind \
   --bootstrap-flags name=management-cluster \
   --cluster ./out/management-cluster/cluster.yaml \
