@@ -8,4 +8,4 @@ set -e
 ./install_kubectl.sh
 
 ./create_cluster.sh
-./configure_cluster.sh
+./create_workload_cluster.sh

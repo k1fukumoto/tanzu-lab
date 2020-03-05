@@ -21,6 +21,3 @@ clusterctl create cluster --v 5 \
   --addon-components ./out/management-cluster/addons.yaml \
   --kubeconfig-out ./out/management-cluster/kubeconfig
 
-#kind create cluster --name=clusterapi
-#kubectl cluster-info --context kind-clusterapi
-
