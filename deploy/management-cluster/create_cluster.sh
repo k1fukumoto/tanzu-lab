@@ -4,6 +4,23 @@ set -e
 
 export PATH=$PATH:bin
 
-kind create cluster --name=clusterapi
-kubectl cluster-info --context kind-clusterapi
+# generate manifests
+docker run --rm \
+  -v "$(pwd)":/out \
+  -v "$(pwd)/envvars.txt":/envvars.txt:ro \
+  gcr.io/cluster-api-provider-vsphere/release/manifests:v0.5.4 \
+  -c management-cluster
+
+# create cluster
+clusterctl create cluster \
+  --bootstrap-type kind \
+  --bootstrap-flags name=management-cluster \
+  --cluster ./out/management-cluster/cluster.yaml \
+  --machines ./out/management-cluster/controlplane.yaml \
+  --provider-components ./out/management-cluster/provider-components.yaml \
+  --addon-components ./out/management-cluster/addons.yaml \
+  --kubeconfig-out ./out/management-cluster/kubeconfig
+
+#kind create cluster --name=clusterapi
+#kubectl cluster-info --context kind-clusterapi
 
