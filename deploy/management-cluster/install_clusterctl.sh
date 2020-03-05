@@ -2,7 +2,9 @@
 
 set -e
 
-wget https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.3.0-rc.2/clusterctl-linux-amd64
+CLUSTERCTL_VERSION=v0.2.10
+
+wget https://github.com/kubernetes-sigs/cluster-api/releases/download/$CLUSTERCTL_VERSION/clusterctl-linux-amd64
 
 chmod +x ./clusterctl-linux-amd64
 
