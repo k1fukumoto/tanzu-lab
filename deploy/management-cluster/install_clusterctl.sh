@@ -1,8 +1,9 @@
 #!/bin/sh
 
 set -e
+. ./defines.sh
 
-wget https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.3.0-rc.2/clusterctl-linux-amd64
+wget https://github.com/kubernetes-sigs/cluster-api/releases/download/$VERSION_CLUSTERCTL/clusterctl-linux-amd64
 
 chmod 777 ./clusterctl-linux-amd64
 

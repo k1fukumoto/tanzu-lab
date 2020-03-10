@@ -1,0 +1,1 @@
+export VERSION_CLUSTERCTL=v0.3.0-rc.3
