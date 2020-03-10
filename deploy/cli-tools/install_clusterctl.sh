@@ -7,8 +7,7 @@ wget https://github.com/kubernetes-sigs/cluster-api/releases/download/$VERSION_C
 
 chmod 777 ./clusterctl-linux-amd64
 
-[ -d bin ] || (mkdir bin && chmod 777 bin)
-mv ./clusterctl-linux-amd64 bin/clusterctl
+mv ./clusterctl-linux-amd64 ./clusterctl
 
 [ -d ~/.cluster-api ] || (mkdir ~/.cluster-api && chmod 777 ~/.cluster-api)
 cp ./clusterctl.yaml ~/.cluster-api
