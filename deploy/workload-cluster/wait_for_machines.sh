@@ -1,6 +1,8 @@
 #!/bin/sh
 
-WORKLOAD_CLUSTER=$1
+set -e
+
+PATH=$PATH:../cli-tools
 
 echo -n "Start waiting for machines to be ready"
 while true

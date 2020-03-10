@@ -1,15 +1,10 @@
-#!/bin/sh
+#!/bin/sh -v
 
-sudo apt install -y debconf-utils
-echo 'libssl1.1	libraries/restart-without-asking	boolean	true' | sudo debconf-set-selections
-echo 'libssl1.1:amd64	libraries/restart-without-asking	boolean	true' | sudo debconf-selections
+set -e
 
-sudo apt install -y scons
-
-DEPLOY=$(pwd)
-
-cd $DEPLOY/cli-tools
-sudo scons || exit 1
-
-cd $DEPLOY/management-cluster
-sudo scons || exit 1
+for d in cli-tools management-cluster workload-cluster 
+do
+  (cd cli-tools && ./setup.sh)
+  (cd management-cluster && ./setup.sh)
+  (cd workload-cluster && ./setup.sh)
+done

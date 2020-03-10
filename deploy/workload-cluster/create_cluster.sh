@@ -2,7 +2,7 @@
 
 set -e
 
-export PATH=$PATH:../management-cluster/bin
+export PATH=$PATH:../cli-tools
 
 clusterctl config cluster vsphere-quickstart \
     --infrastructure vsphere \

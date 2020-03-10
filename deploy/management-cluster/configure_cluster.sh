@@ -2,6 +2,6 @@
 
 set -e
 
-export PATH=$PATH:bin
+export PATH=$PATH:../cli-tools
 
 clusterctl init --infrastructure vsphere

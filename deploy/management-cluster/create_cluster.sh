@@ -2,7 +2,7 @@
 
 set -e
 
-export PATH=$PATH:bin
+export PATH=$PATH:../cli-tools
 
 kind create cluster
 

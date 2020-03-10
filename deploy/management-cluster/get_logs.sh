@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-export PATH=$PATH:bin
+export PATH=$PATH:../cli-tools
 
 namespace=$1
 
