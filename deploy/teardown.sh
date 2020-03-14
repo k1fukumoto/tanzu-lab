@@ -1,5 +1,8 @@
-#!/bin/sh
+#!/bin/sh -v
 
-kubectl delete machinedeployment --all
-kubectl delete clusters --selector cluster-type=workload
+set -e
 
+for d in workload-cluster management-cluster cli-tools
+do
+  (cd $d && ./teardown.sh)
+done
