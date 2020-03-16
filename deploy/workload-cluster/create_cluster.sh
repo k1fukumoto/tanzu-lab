@@ -10,3 +10,5 @@ clusterctl config cluster vsphere-quickstart \
     --control-plane-machine-count 1 \
     --worker-machine-count 3 | kubectl apply -f - 
 
+# tkg create cluster dev-01 -b --flavor dev
+
